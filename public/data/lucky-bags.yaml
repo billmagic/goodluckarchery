@@ -1,0 +1,53 @@
+version: 1
+
+name: "운세 복주머니"
+description: "복주머니를 열면 운세가 나오는 게임"
+
+bags:
+  - id: 1
+    title: "대길운"
+    type: "reward"
+    result: "행운소식"
+    message: "오늘은 좋은 소식이 들어올 가능성이 높아요. 자신 있게 움직여보세요."
+
+  - id: 2
+    title: "금전운 상승"
+    type: "reward"
+    result: "돈벌 기회"
+    message: "작은 기회가 이익으로 이어질 수 있어요. 지출도 잘 관리해보세요."
+
+  - id: 3
+    title: "애정운 상승"
+    type: "reward"
+    result: "이성친구 기회"
+    message: "대화가 부드럽게 이어질 수 있는 날이에요."    
+
+  - id: 4
+    title: "건강운 회복"
+    type: "reward"
+    result: "건강이 찾아와요"
+    message: "몸과 마음의 균형이 좋아지는 흐름입니다"  
+
+  - id: 5
+    title: "행운 폭발!"
+    type: "reward"
+    result: "커다란 행운이 와요"
+    message: "기대하지 않았던 즐거운 일이 생길 수 있어요."  
+
+  - id: 6
+    title: "인연운 상승"
+    type: "reward"
+    result: "새로운 인연의 기회가"
+    message: "반가운 연락이나 새로운 만남이 찾아올 수 있어요."  
+
+  - id: 7
+    title: "소원 성취"
+    type: "reward"
+    result: "소원이 이루어져요"
+    message: "준비하던 일이 좋은 방향으로 풀릴 수 있어요."  
+
+  - id: 8
+    title: "꽝!"
+    type: "miss"
+    result: "아쉽네요"
+    message: "다음기회에.."  

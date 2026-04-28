@@ -1,0 +1,39 @@
+name: "웃긴 벌칙 미션"
+description: "친구나 가족과 함께 하기 좋은 재미있는 벌칙 복주머니"
+
+bags:
+  - id: 1
+    title: "막춤추기"
+    type: "penalty"
+    result: "1분간 막춤"
+    message: "음악 없이 1분간 막춤을 춰야 합니다."
+
+  - id: 2
+    title: "딱밤맞기"
+    type: "penalty"
+    result: "딱밤 1대"
+    message: "가볍게 딱밤 1대를 맞습니다."
+
+  - id: 3
+    title: "얼굴표정 따라하기"
+    type: "mission"
+    result: "표정 따라하기"
+    message: "상대방이 짓는 얼굴표정을 똑같이 따라 하세요."
+
+  - id: 4
+    title: "동물 흉내내기"
+    type: "mission"
+    result: "동물 흉내"
+    message: "고양이, 강아지, 원숭이 중 하나를 골라 흉내 내세요."
+
+  - id: 5
+    title: "애교하기"
+    type: "penalty"
+    result: "10초 애교"
+    message: "10초 동안 최대한 귀엽게 애교를 보여주세요."
+
+  - id: 6
+    title: "웃음 참기"
+    type: "challenge"
+    result: "30초 웃음 참기"
+    message: "다른 사람들이 웃겨도 30초 동안 웃지 마세요."

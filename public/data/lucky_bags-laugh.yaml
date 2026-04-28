@@ -1,0 +1,51 @@
+name: "랜덤 웃음 미션"
+description: "친구나 가족 모임에서 분위기를 띄우기 좋은 랜덤 웃음 복주머니"
+
+bags:
+  - id: 1
+    title: "로봇 말투하기"
+    type: "penalty"
+    result: "30초 로봇 말투"
+    message: "30초 동안 로봇처럼 끊어서 말해야 합니다."
+
+  - id: 2
+    title: "이상한 자기소개"
+    type: "mission"
+    result: "웃긴 자기소개"
+    message: "본인을 아주 과장되게 20초 동안 소개하세요."
+
+  - id: 3
+    title: "눈싸움하기"
+    type: "challenge"
+    result: "10초 눈싸움"
+    message: "상대방과 10초 동안 웃지 않고 눈싸움을 하세요."
+
+  - id: 4
+    title: "광고 모델 되기"
+    type: "mission"
+    result: "물건 광고하기"
+    message: "주변에 있는 물건 하나를 골라 20초 동안 광고하세요."
+
+  - id: 5
+    title: "거꾸로 말하기"
+    type: "penalty"
+    result: "문장 거꾸로 말하기"
+    message: "'나는 오늘 기분이 좋다'를 최대한 거꾸로 말해보세요."
+
+  - id: 6
+    title: "왕처럼 말하기"
+    type: "mission"
+    result: "왕 말투"
+    message: "30초 동안 왕이나 여왕처럼 말해야 합니다."
+
+  - id: 7
+    title: "슬로우 모션 행동"
+    type: "penalty"
+    result: "슬로우 모션"
+    message: "자리에서 일어나 다시 앉기까지 모든 동작을 슬로우 모션으로 하세요."
+
+  - id: 8
+    title: "칭찬 폭탄"
+    type: "reward"
+    result: "칭찬 받기"
+    message: "모두에게 한 가지씩 칭찬을 받습니다."

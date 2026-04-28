@@ -1,0 +1,33 @@
+name: "보상 복주머니"
+description: "벌칙 없이 기분 좋은 보상 위주의 복주머니"
+
+bags:
+  - id: 1
+    title: "간식 획득"
+    type: "reward"
+    result: "간식 하나 받기"
+    message: "축하합니다. 원하는 간식 하나를 받을 수 있습니다."
+
+  - id: 2
+    title: "벌칙 면제권"
+    type: "reward"
+    result: "벌칙 1회 면제"
+    message: "다음 벌칙을 한 번 피할 수 있습니다."
+
+  - id: 3
+    title: "자리 선택권"
+    type: "reward"
+    result: "좋은 자리 선택"
+    message: "원하는 자리를 먼저 선택할 수 있습니다."
+
+  - id: 4
+    title: "명령권"
+    type: "reward"
+    result: "가벼운 부탁 1회"
+    message: "다른 사람에게 가벼운 부탁 하나를 할 수 있습니다."
+
+  - id: 5
+    title: "휴식권"
+    type: "reward"
+    result: "한 턴 쉬기"
+    message: "아무것도 하지 않고 쉴 수 있습니다."

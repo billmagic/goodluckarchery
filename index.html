@@ -1,17 +1,49 @@
-<!DOCTYPE html> 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lucky Archery</title>
-</head>
-<body>
-  <h1>Lucky Archery Game</h1>
-  <canvas id="gameCanvas"></canvas>
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>행운 양궁</title>
+    <meta name="theme-color" content="#dbeafe" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <style>
+      html,
+      body,
+      #root {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+      }
 
-  <script>
-    const canvas = document.getElementById("gameCanvas");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  </script>
-</body>
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #eff6ff;
+        overscroll-behavior: none;
+        touch-action: manipulation;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  </body>
 </html>

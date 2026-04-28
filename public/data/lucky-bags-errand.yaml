@@ -1,0 +1,39 @@
+name: "심부름 / 돈내기 / 요리 미션"
+description: "사다리 타기 게임처럼 복주머니를 열면 생활 미션이 나오는 게임"
+
+bags:
+  - id: 1
+    title: "심부름하기"
+    type: "mission"
+    result: "편의점 다녀오기"
+    message: "당첨! 편의점에서 원하는 간식 하나 사오기"
+
+  - id: 2
+    title: "돈내기"
+    type: "penalty"
+    result: "간식비 내기"
+    message: "오늘 간식비는 당신이 부담합니다."
+
+  - id: 3
+    title: "그냥 먹기"
+    type: "reward"
+    result: "무료 시식권"
+    message: "축하합니다. 아무것도 안 하고 그냥 먹으면 됩니다."
+
+  - id: 4
+    title: "요리하기"
+    type: "mission"
+    result: "라면 끓이기"
+    message: "모두를 위해 라면을 끓여주세요."
+
+  - id: 5
+    title: "설거지하기"
+    type: "penalty"
+    result: "설거지 담당"
+    message: "오늘 설거지는 당신 차례입니다."
+
+  - id: 6
+    title: "배달 주문하기"
+    type: "mission"
+    result: "배달 음식 주문"
+    message: "모두의 메뉴를 정리해서 배달 주문하세요."
