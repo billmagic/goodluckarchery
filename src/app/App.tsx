@@ -126,6 +126,7 @@ export default function App() {
   const [newGameAvailable, setNewGameAvailable] = useState(false)
   const [selectedBagIndex, setSelectedBagIndex] = useState<number | null>(null)
   const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>('low')
+  const [gameSelectHidden, setGameSelectHidden] = useState(false)
   const isGameSelectionLocked = results.length > 0 && results.length < 5
   const isNarrow = useMediaQuery('(max-width: 768px)')
   const [viewportWidth, setViewportWidth] = useState(
@@ -166,6 +167,8 @@ export default function App() {
   const bagPanelBottom = isMobileLandscape ? 8 : isMobilePortrait ? joystickSize + 52 : 132
   const bagPanelWidth = isMobileLandscape ? 'min(54vw, 420px)' : isMobilePortrait ? 'min(98vw, 860px)' : 'min(94vw, 760px)'
   const titleWidth = isMobileLandscape ? 'min(52vw, 380px)' : isMobilePortrait ? 'min(96vw, 560px)' : undefined
+  const activeResultPanelWidth =
+    isMobilePortrait && gameSelectHidden ? 'min(98vw, 860px)' : resultPanelWidth
 
   useEffect(() => {
     let isMounted = true
@@ -298,6 +301,9 @@ export default function App() {
   }, [results, scopePreview.bags, scopePreview.expectedNextColor, selectedBagIndex])
 
   const handleJoystickStart = () => {
+    if (isMobilePortrait && !gameSelectHidden) {
+      setGameSelectHidden(true)
+    }
     if (scopePreview.bags.length > 0) {
       const expected = scopePreview.expectedNextColor
       const idx = expected
@@ -333,6 +339,7 @@ export default function App() {
     setSelectedBagIndex(0)
     setAim({ x: 0, y: 0 })
     sceneRef.current?.setAimOffset(0, 0)
+    setGameSelectHidden(false)
   }
 
   const handleExit = () => {
@@ -388,27 +395,28 @@ export default function App() {
         overflow: 'hidden',
       }}
     >
-      {/* 게임 모드 선택 UI */}
-      <div
-        style={{
-          position: 'absolute',
-          top: isMobilePortrait ? gameSelectTop : gameSelectTop,
-          bottom: isMobilePortrait ? undefined : gameSelectBottomPortrait,
-          left: isNarrow ? 10 : 20,
-          zIndex: 35,
-          background: 'rgba(255,255,255,0.95)',
-          borderRadius: 12,
-          padding: isMobileLandscape ? 8 : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
-          maxHeight: isMobileLandscape ? '26vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
-          overflowY: isNarrow ? 'auto' : undefined,
-          WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
-          maxWidth: gameSelectMaxWidth,
-          minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
-          minHeight: isMobilePortrait ? 110 : undefined,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
+      {/* 게임 모드 선택 UI (모바일 세로에서 첫 조준 전까지 표시) */}
+      {!(isMobilePortrait && gameSelectHidden) && (
+        <div
+          style={{
+            position: 'absolute',
+            top: gameSelectTop,
+            bottom: isMobilePortrait ? undefined : gameSelectBottomPortrait,
+            left: isNarrow ? 10 : 20,
+            zIndex: 35,
+            background: 'rgba(255,255,255,0.95)',
+            borderRadius: 12,
+            padding: isMobileLandscape ? 8 : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
+            maxHeight: isMobileLandscape ? '26vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
+            overflowY: isNarrow ? 'auto' : undefined,
+            WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
+            maxWidth: gameSelectMaxWidth,
+            minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
+            minHeight: isMobilePortrait ? 110 : undefined,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
         <div
           style={{
             fontSize: isMobileLandscape ? 13 : isMobilePortrait ? 12 : 16,
@@ -470,7 +478,8 @@ export default function App() {
             복불복 내기 게임
           </button>
         </div>
-      </div>
+        </div>
+      )}
 
       <div
         ref={containerRef}
@@ -526,7 +535,12 @@ export default function App() {
         style={{
           position: 'absolute',
           top: isMobilePortrait ? gameSelectTop : resultPanelTop,
-          left: isMobilePortrait ? '52vw' : '50%',
+          left:
+            isMobilePortrait && gameSelectHidden
+              ? 10
+              : isMobilePortrait
+              ? '52vw'
+              : '50%',
           transform: isMobilePortrait ? 'none' : 'translateX(-50%)',
           zIndex: 35,
           display: 'grid',
@@ -536,7 +550,7 @@ export default function App() {
               : 'repeat(5, minmax(56px, 1fr))'
             : 'repeat(5, minmax(100px, 1fr))',
           gap: isMobileLandscape ? 4 : isNarrow ? 6 : 18,
-          width: resultPanelWidth,
+          width: activeResultPanelWidth,
           padding: isMobileLandscape ? '0 2px' : isMobilePortrait ? '0 4px' : isNarrow ? '0 6px' : '0 14px',
           overflowX: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
@@ -647,13 +661,13 @@ export default function App() {
           ...(isNarrow
             ? isMobilePortrait
               ? {
-                  top: '44%',
+                  top: '18%',
                   left: 'auto',
                   right: 10,
                   transform: 'none',
                   bottom: 'auto',
                   minWidth: 0,
-                  width: 'min(40vw, 160px)',
+                  width: 'min(24vw, 120px)',
                 }
               : {
                   top: isMobileLandscape ? 8 : 118,
