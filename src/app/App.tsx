@@ -154,8 +154,9 @@ export default function App() {
   const gameSelectMaxWidth = isMobileLandscape
     ? 'min(calc(100vw - 20px), 220px)'
     : isMobilePortrait
-    ? 'min(calc(100vw - 20px), 320px)'
+    ? 'min(calc(50vw - 10px), 220px)'
     : undefined
+  const gameSelectBottomPortrait = joystickSize + 140
   const resultPanelTop = isMobileLandscape ? 58 : isMobilePortrait ? 224 : 96
   const resultPanelWidth = isMobileLandscape
     ? 'min(58vw, 500px)'
@@ -391,13 +392,14 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: gameSelectTop,
+          top: isMobilePortrait ? 'auto' : gameSelectTop,
+          bottom: isMobilePortrait ? gameSelectBottomPortrait : undefined,
           left: isNarrow ? 10 : 20,
           zIndex: 35,
           background: 'rgba(255,255,255,0.95)',
           borderRadius: 12,
-          padding: isMobileLandscape ? 8 : isNarrow ? 12 : 16,
-          maxHeight: isMobileLandscape ? '26vh' : isNarrow ? '36vh' : undefined,
+          padding: isMobileLandscape ? 8 : isMobilePortrait ? '8px 10px' : isNarrow ? 12 : 16,
+          maxHeight: isMobileLandscape ? '26vh' : isMobilePortrait ? '26vh' : isNarrow ? '36vh' : undefined,
           overflowY: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
           maxWidth: gameSelectMaxWidth,
@@ -407,10 +409,10 @@ export default function App() {
       >
         <div
           style={{
-            fontSize: isMobileLandscape ? 13 : 16,
+            fontSize: isMobileLandscape ? 13 : isMobilePortrait ? 13 : 16,
             fontWeight: 700,
             color: '#1d4ed8',
-            marginBottom: isMobileLandscape ? 8 : 12,
+            marginBottom: isMobileLandscape ? 8 : isMobilePortrait ? 8 : 12,
             textAlign: 'center',
           }}
         >
@@ -427,14 +429,14 @@ export default function App() {
                 onClick={() => handleYamlGameSelect(game.path)}
                 disabled={isGameSelectionLocked}
                 style={{
-                  padding: isMobileLandscape ? '8px 10px' : '10px 16px',
+                  padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '8px 12px' : '10px 16px',
                   border: isSelected ? '2px solid #2563eb' : '1px solid #d1d5db',
                   borderRadius: 8,
                   background: isSelected ? '#eff6ff' : '#ffffff',
                   color: isSelected ? '#2563eb' : '#374151',
                   cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
                   opacity: isGameSelectionLocked ? 0.5 : 1,
-                  fontSize: isMobileLandscape ? 12 : 14,
+                  fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 12 : 14,
                   fontWeight: 500,
                   outline: 'none',
                   textAlign: 'left',
@@ -451,14 +453,14 @@ export default function App() {
             disabled={isGameSelectionLocked}
             style={{
               marginTop: 4,
-              padding: isMobileLandscape ? '8px 10px' : '10px 16px',
+              padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '8px 12px' : '10px 16px',
               border: gameMode === 'custom-betting' ? '2px solid #2563eb' : '1px solid #d1d5db',
               borderRadius: 8,
               background: gameMode === 'custom-betting' ? '#eff6ff' : '#ffffff',
               color: gameMode === 'custom-betting' ? '#2563eb' : '#374151',
               cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
               opacity: isGameSelectionLocked ? 0.5 : 1,
-              fontSize: isMobileLandscape ? 12 : 14,
+              fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 12 : 14,
               fontWeight: 700,
               outline: 'none',
             }}
@@ -641,17 +643,25 @@ export default function App() {
         style={{
           position: 'absolute',
           ...(isNarrow
-            ? {
-                top: isMobileLandscape ? 8 : 118,
-                left: isMobileLandscape ? 'auto' : '50%',
-                right: isMobileLandscape ? 10 : undefined,
-                transform: isMobileLandscape ? 'none' : 'translateX(-50%)',
-                minWidth: isMobileLandscape
-                  ? 'min(42vw, 150px)'
-                  : isMobilePortrait
-                  ? 'min(74vw, 260px)'
-                  : 'min(92vw, 200px)',
-              }
+            ? isMobilePortrait
+              ? {
+                  top: 'auto',
+                  left: 'auto',
+                  right: 10,
+                  transform: 'none',
+                  bottom: joystickSize + 22,
+                  minWidth: 0,
+                  width: 'min(46vw, 180px)',
+                }
+              : {
+                  top: isMobileLandscape ? 8 : 118,
+                  left: isMobileLandscape ? 'auto' : '50%',
+                  right: isMobileLandscape ? 10 : undefined,
+                  transform: isMobileLandscape ? 'none' : 'translateX(-50%)',
+                  minWidth: isMobileLandscape
+                    ? 'min(42vw, 150px)'
+                    : 'min(92vw, 200px)',
+                }
             : {
                 top: 'calc(50% - 10vmin)',
                 left: `calc(50% + 20vmin + ${BAG_ICON_SIZE_PX}px)`,
@@ -659,8 +669,8 @@ export default function App() {
                 minWidth: 150,
               }),
           zIndex: 35,
-          padding: compactPanelPadding,
-          borderRadius: isMobileLandscape ? 12 : 18,
+          padding: isMobilePortrait ? '8px 10px' : compactPanelPadding,
+          borderRadius: isMobileLandscape || isMobilePortrait ? 12 : 18,
           background: '#dcfce7',
           border: '1px solid rgba(59,130,246,0.16)',
           boxShadow: '0 14px 40px rgba(30,64,175,0.12)',
@@ -670,34 +680,34 @@ export default function App() {
       >
         <div
           style={{
-            fontSize: isMobileLandscape ? 10 : 12,
+            fontSize: isMobileLandscape ? 10 : isMobilePortrait ? 10 : 12,
             fontWeight: 700,
             color: '#2563eb',
-            marginBottom: isMobileLandscape ? 4 : 6,
+            marginBottom: isMobileLandscape ? 4 : isMobilePortrait ? 4 : 6,
           }}
         >
           바람 정보
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobileLandscape ? 6 : 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobileLandscape ? 6 : isMobilePortrait ? 7 : 10 }}>
           <div
             style={{
-              width: isMobileLandscape ? 26 : 40,
-              height: isMobileLandscape ? 26 : 40,
+              width: isMobileLandscape ? 26 : isMobilePortrait ? 28 : 40,
+              height: isMobileLandscape ? 26 : isMobilePortrait ? 28 : 40,
               borderRadius: '50%',
               display: 'grid',
               placeItems: 'center',
               background: '#eff6ff',
               color: '#1d4ed8',
-              fontSize: isMobileLandscape ? 15 : 22,
+              fontSize: isMobileLandscape ? 15 : isMobilePortrait ? 16 : 22,
             }}
           >
             {windInfo?.arrow ?? '→'}
           </div>
           <div>
-            <div style={{ fontSize: isMobileLandscape ? 11 : 14, fontWeight: 700 }}>
+            <div style={{ fontSize: isMobileLandscape ? 11 : isMobilePortrait ? 11 : 14, fontWeight: 700 }}>
               {windInfo?.direction8 ?? '동'}
             </div>
-            <div style={{ fontSize: isMobileLandscape ? 10 : 13, color: '#475569' }}>
+            <div style={{ fontSize: isMobileLandscape ? 10 : isMobilePortrait ? 10 : 13, color: '#475569' }}>
               {(windInfo?.speedMps ?? 0).toFixed(1)} m/s
             </div>
           </div>
@@ -719,14 +729,24 @@ export default function App() {
         style={{
           position: 'absolute',
           ...(isNarrow
-            ? {
-                left: isMobileLandscape ? 'auto' : 10,
-                right: isMobileLandscape ? 10 : 10,
-                top: isMobileLandscape ? 44 : 'auto',
-                bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
-                transform: 'none',
-                minWidth: 0,
-              }
+            ? isMobilePortrait
+              ? {
+                  left: 10,
+                  right: 'auto',
+                  top: 'auto',
+                  bottom: 'max(12px, env(safe-area-inset-bottom, 0px))',
+                  transform: 'none',
+                  minWidth: 0,
+                  width: 'min(46vw, 180px)',
+                }
+              : {
+                  left: isMobileLandscape ? 'auto' : 10,
+                  right: isMobileLandscape ? 10 : 10,
+                  top: isMobileLandscape ? 44 : 'auto',
+                  bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
+                  transform: 'none',
+                  minWidth: 0,
+                }
             : {
                 right: 24,
                 top: '50%',
@@ -742,10 +762,22 @@ export default function App() {
           color: '#0f172a',
         }}
       >
-        <div style={{ fontSize: isMobileLandscape ? 11 : 13, fontWeight: 800, marginBottom: 8 }}>
+        <div
+          style={{
+            fontSize: isMobileLandscape ? 11 : isMobilePortrait ? 11 : 13,
+            fontWeight: 800,
+            marginBottom: 8,
+          }}
+        >
           게임 난이도
         </div>
-        <div style={{ display: 'grid', gap: isMobileLandscape ? 6 : 8, fontSize: isMobileLandscape ? 12 : 14 }}>
+        <div
+          style={{
+            display: 'grid',
+            gap: isMobileLandscape ? 6 : isMobilePortrait ? 6 : 8,
+            fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 12 : 14,
+          }}
+        >
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
             <input
               type="radio"
