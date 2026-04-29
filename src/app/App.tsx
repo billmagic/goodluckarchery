@@ -150,15 +150,15 @@ export default function App() {
   const isMobileLandscape = isNarrow && viewportWidth > viewportHeight
   const isMobilePortrait = isNarrow && !isMobileLandscape
   const compactPanelPadding = isMobileLandscape ? '8px 10px' : isMobilePortrait ? '10px 12px' : '12px 14px'
-  const topSafeOffset = isMobileLandscape ? 8 : isMobilePortrait ? 12 : 24
-  const gameSelectTop = isMobileLandscape ? 8 : isMobilePortrait ? 72 : 20
+  const topSafeOffset = isMobileLandscape ? 8 : isMobilePortrait ? 2 : 24
+  const gameSelectTop = isMobileLandscape ? 8 : isMobilePortrait ? 42 : 20
   const gameSelectMaxWidth = isMobileLandscape
     ? 'min(calc(100vw - 20px), 220px)'
     : isMobilePortrait
     ? 'min(calc(50vw - 10px), 220px)'
     : undefined
   const gameSelectBottomPortrait = joystickSize + 140
-  const resultPanelTop = isMobileLandscape ? 58 : isMobilePortrait ? 224 : 96
+  const resultPanelTop = isMobileLandscape ? 58 : isMobilePortrait ? 42 : 96
   const resultPanelWidth = isMobileLandscape
     ? 'min(58vw, 500px)'
     : isMobilePortrait
