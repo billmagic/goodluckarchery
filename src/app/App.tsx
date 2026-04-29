@@ -131,15 +131,24 @@ export default function App() {
   const [viewportWidth, setViewportWidth] = useState(
     () => (typeof window !== 'undefined' ? window.innerWidth : 1024)
   )
+  const [viewportHeight, setViewportHeight] = useState(
+    () => (typeof window !== 'undefined' ? window.innerHeight : 768)
+  )
 
   useEffect(() => {
-    const onResize = () => setViewportWidth(window.innerWidth)
+    const onResize = () => {
+      setViewportWidth(window.innerWidth)
+      setViewportHeight(window.innerHeight)
+    }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
   const joystickSize =
     viewportWidth <= 768 ? Math.min(130, Math.round(viewportWidth * 0.36)) : 132
+  const isMobileLandscape = isNarrow && viewportWidth > viewportHeight
+  const compactPanelPadding = isMobileLandscape ? '8px 10px' : '12px 14px'
+  const topSafeOffset = isMobileLandscape ? 8 : isNarrow ? 10 : 24
 
   useEffect(() => {
     let isMounted = true
@@ -366,26 +375,30 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isNarrow ? 52 : 20,
+          top: isMobileLandscape ? 8 : isNarrow ? 52 : 20,
           left: isNarrow ? 10 : 20,
           zIndex: 35,
           background: 'rgba(255,255,255,0.95)',
           borderRadius: 12,
-          padding: isNarrow ? 12 : 16,
-          maxHeight: isNarrow ? '36vh' : undefined,
+          padding: isMobileLandscape ? 8 : isNarrow ? 12 : 16,
+          maxHeight: isMobileLandscape ? '26vh' : isNarrow ? '36vh' : undefined,
           overflowY: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
-          maxWidth: isNarrow ? 'min(calc(100vw - 20px), 280px)' : undefined,
+          maxWidth: isMobileLandscape
+            ? 'min(calc(100vw - 20px), 220px)'
+            : isNarrow
+            ? 'min(calc(100vw - 20px), 280px)'
+            : undefined,
           boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
           backdropFilter: 'blur(8px)',
         }}
       >
         <div
           style={{
-            fontSize: 16,
+            fontSize: isMobileLandscape ? 13 : 16,
             fontWeight: 700,
             color: '#1d4ed8',
-            marginBottom: 12,
+            marginBottom: isMobileLandscape ? 8 : 12,
             textAlign: 'center',
           }}
         >
@@ -402,14 +415,14 @@ export default function App() {
                 onClick={() => handleYamlGameSelect(game.path)}
                 disabled={isGameSelectionLocked}
                 style={{
-                  padding: '10px 16px',
+                  padding: isMobileLandscape ? '8px 10px' : '10px 16px',
                   border: isSelected ? '2px solid #2563eb' : '1px solid #d1d5db',
                   borderRadius: 8,
                   background: isSelected ? '#eff6ff' : '#ffffff',
                   color: isSelected ? '#2563eb' : '#374151',
                   cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
                   opacity: isGameSelectionLocked ? 0.5 : 1,
-                  fontSize: 14,
+                  fontSize: isMobileLandscape ? 12 : 14,
                   fontWeight: 500,
                   outline: 'none',
                   textAlign: 'left',
@@ -426,14 +439,14 @@ export default function App() {
             disabled={isGameSelectionLocked}
             style={{
               marginTop: 4,
-              padding: '10px 16px',
+              padding: isMobileLandscape ? '8px 10px' : '10px 16px',
               border: gameMode === 'custom-betting' ? '2px solid #2563eb' : '1px solid #d1d5db',
               borderRadius: 8,
               background: gameMode === 'custom-betting' ? '#eff6ff' : '#ffffff',
               color: gameMode === 'custom-betting' ? '#2563eb' : '#374151',
               cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
               opacity: isGameSelectionLocked ? 0.5 : 1,
-              fontSize: 14,
+              fontSize: isMobileLandscape ? 12 : 14,
               fontWeight: 700,
               outline: 'none',
             }}
@@ -455,22 +468,22 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isNarrow ? 10 : 24,
+          top: topSafeOffset,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 35,
           textAlign: 'center',
           color: '#1d4ed8',
-          fontSize: 'clamp(22px, 5.5vw, 52px)',
+          fontSize: isMobileLandscape ? 'clamp(18px, 4vw, 28px)' : 'clamp(22px, 5.5vw, 52px)',
           fontWeight: 800,
           letterSpacing: '0.02em',
           textShadow: '0 2px 12px rgba(30,64,175,0.16)',
           display: 'flex',
           alignItems: 'center',
-          gap: isNarrow ? 8 : 12,
+          gap: isMobileLandscape ? 6 : isNarrow ? 8 : 12,
           flexWrap: 'wrap',
           justifyContent: 'center',
-          width: isNarrow ? 'min(96vw, 520px)' : undefined,
+          width: isMobileLandscape ? 'min(52vw, 380px)' : isNarrow ? 'min(96vw, 520px)' : undefined,
           padding: isNarrow ? '0 8px' : undefined,
         }}
       >
@@ -478,13 +491,13 @@ export default function App() {
         {yamlGameName && (
           <span
             style={{
-              fontSize: 'clamp(16px, 1.8vw, 24px)',
+              fontSize: isMobileLandscape ? 'clamp(12px, 2vw, 16px)' : 'clamp(16px, 1.8vw, 24px)',
               fontWeight: 700,
               color: '#0f766e',
               background: 'rgba(255,255,255,0.72)',
               border: '1px solid rgba(15,118,110,0.2)',
               borderRadius: 999,
-              padding: '6px 12px',
+              padding: isMobileLandscape ? '4px 8px' : '6px 12px',
             }}
           >
             {yamlGameName}
@@ -496,17 +509,19 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isNarrow ? 200 : 96,
+          top: isMobileLandscape ? 58 : isNarrow ? 200 : 96,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 35,
           display: 'grid',
           gridTemplateColumns: isNarrow
-            ? 'repeat(5, minmax(56px, 1fr))'
+            ? isMobileLandscape
+              ? 'repeat(5, minmax(44px, 1fr))'
+              : 'repeat(5, minmax(56px, 1fr))'
             : 'repeat(5, minmax(100px, 1fr))',
-          gap: isNarrow ? 6 : 18,
-          width: isNarrow ? 'min(98vw, 760px)' : 'min(94vw, 760px)',
-          padding: isNarrow ? '0 6px' : '0 14px',
+          gap: isMobileLandscape ? 4 : isNarrow ? 6 : 18,
+          width: isMobileLandscape ? 'min(58vw, 500px)' : isNarrow ? 'min(98vw, 760px)' : 'min(94vw, 760px)',
+          padding: isMobileLandscape ? '0 2px' : isNarrow ? '0 6px' : '0 14px',
           overflowX: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
         }}
@@ -525,9 +540,9 @@ export default function App() {
               key={`shot-result-slot-${slotIndex}`}
               style={{
                 position: 'relative',
-                minHeight: isNarrow ? 72 : 100,
-                padding: isNarrow ? '8px 6px 10px' : '10px 14px 12px',
-                borderRadius: 18,
+                minHeight: isMobileLandscape ? 58 : isNarrow ? 72 : 100,
+                padding: isMobileLandscape ? '6px 4px 8px' : isNarrow ? '8px 6px 10px' : '10px 14px 12px',
+                borderRadius: isMobileLandscape ? 12 : 18,
                 border: isNextShot ? '2px solid #2563eb' : '1px solid rgba(148,163,184,0.35)',
                 background: isNextShot ? 'rgba(59,130,246,0.12)' : '#ffffff',
                 display: 'flex',
@@ -540,14 +555,14 @@ export default function App() {
             >
               <div
                 style={{
-                  width: 32,
-                  height: 32,
+                  width: isMobileLandscape ? 22 : 32,
+                  height: isMobileLandscape ? 22 : 32,
                   borderRadius: '50%',
                   display: 'grid',
                   placeItems: 'center',
                   background: isNextShot ? '#2563eb' : '#e2e8f0',
                   color: isNextShot ? '#ffffff' : '#475569',
-                  fontSize: 15,
+                  fontSize: isMobileLandscape ? 11 : 15,
                   fontWeight: 800,
                 }}
               >
@@ -563,7 +578,7 @@ export default function App() {
                       justifyContent: 'center',
                       gap: 8,
                       flexWrap: 'wrap',
-                      fontSize: 13,
+                      fontSize: isMobileLandscape ? 10 : 13,
                       fontWeight: 700,
                     }}
                   >
@@ -583,7 +598,7 @@ export default function App() {
                   <div
                     style={{
                       width: '100%',
-                      fontSize: 11,
+                      fontSize: isMobileLandscape ? 9 : 11,
                       color: '#475569',
                       textAlign: 'center',
                       lineHeight: 1.4,
@@ -597,7 +612,7 @@ export default function App() {
                   style={{
                     width: '100%',
                     textAlign: 'center',
-                    fontSize: 12,
+                    fontSize: isMobileLandscape ? 10 : 12,
                     fontWeight: 700,
                     color: '#94a3b8',
                   }}
@@ -615,10 +630,11 @@ export default function App() {
           position: 'absolute',
           ...(isNarrow
             ? {
-                top: 118,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                minWidth: 'min(92vw, 200px)',
+                top: isMobileLandscape ? 8 : 118,
+                left: isMobileLandscape ? 'auto' : '50%',
+                right: isMobileLandscape ? 10 : undefined,
+                transform: isMobileLandscape ? 'none' : 'translateX(-50%)',
+                minWidth: isMobileLandscape ? 'min(42vw, 150px)' : 'min(92vw, 200px)',
               }
             : {
                 top: 'calc(50% - 10vmin)',
@@ -627,8 +643,8 @@ export default function App() {
                 minWidth: 150,
               }),
           zIndex: 35,
-          padding: '12px 14px',
-          borderRadius: 18,
+          padding: compactPanelPadding,
+          borderRadius: isMobileLandscape ? 12 : 18,
           background: '#dcfce7',
           border: '1px solid rgba(59,130,246,0.16)',
           boxShadow: '0 14px 40px rgba(30,64,175,0.12)',
@@ -636,27 +652,36 @@ export default function App() {
           backdropFilter: 'blur(12px)',
         }}
       >
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#2563eb', marginBottom: 6 }}>
+        <div
+          style={{
+            fontSize: isMobileLandscape ? 10 : 12,
+            fontWeight: 700,
+            color: '#2563eb',
+            marginBottom: isMobileLandscape ? 4 : 6,
+          }}
+        >
           바람 정보
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobileLandscape ? 6 : 10 }}>
           <div
             style={{
-              width: 40,
-              height: 40,
+              width: isMobileLandscape ? 26 : 40,
+              height: isMobileLandscape ? 26 : 40,
               borderRadius: '50%',
               display: 'grid',
               placeItems: 'center',
               background: '#eff6ff',
               color: '#1d4ed8',
-              fontSize: 22,
+              fontSize: isMobileLandscape ? 15 : 22,
             }}
           >
             {windInfo?.arrow ?? '→'}
           </div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 700 }}>{windInfo?.direction8 ?? '동'}</div>
-            <div style={{ fontSize: 13, color: '#475569' }}>
+            <div style={{ fontSize: isMobileLandscape ? 11 : 14, fontWeight: 700 }}>
+              {windInfo?.direction8 ?? '동'}
+            </div>
+            <div style={{ fontSize: isMobileLandscape ? 10 : 13, color: '#475569' }}>
               {(windInfo?.speedMps ?? 0).toFixed(1)} m/s
             </div>
           </div>
@@ -679,10 +704,10 @@ export default function App() {
           position: 'absolute',
           ...(isNarrow
             ? {
-                left: 10,
-                right: 10,
-                top: 'auto',
-                bottom: joystickSize + 36,
+                left: isMobileLandscape ? 'auto' : 10,
+                right: isMobileLandscape ? 10 : 10,
+                top: isMobileLandscape ? 44 : 'auto',
+                bottom: isMobileLandscape ? 'auto' : joystickSize + 36,
                 transform: 'none',
                 minWidth: 0,
               }
@@ -693,16 +718,18 @@ export default function App() {
                 minWidth: 196,
               }),
           zIndex: 40,
-          padding: '12px 14px',
-          borderRadius: 16,
+          padding: compactPanelPadding,
+          borderRadius: isMobileLandscape ? 12 : 16,
           background: 'rgba(255,255,255,0.9)',
           border: '1px solid rgba(15,23,42,0.12)',
           boxShadow: '0 10px 24px rgba(15,23,42,0.12)',
           color: '#0f172a',
         }}
       >
-        <div style={{ fontSize: 13, fontWeight: 800, marginBottom: 8 }}>게임 난이도</div>
-        <div style={{ display: 'grid', gap: 8, fontSize: 14 }}>
+        <div style={{ fontSize: isMobileLandscape ? 11 : 13, fontWeight: 800, marginBottom: 8 }}>
+          게임 난이도
+        </div>
+        <div style={{ display: 'grid', gap: isMobileLandscape ? 6 : 8, fontSize: isMobileLandscape ? 12 : 14 }}>
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
             <input
               type="radio"
@@ -737,15 +764,15 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          bottom: isNarrow ? joystickSize + 44 : 132,
+          bottom: isMobileLandscape ? 8 : isNarrow ? joystickSize + 44 : 132,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 35,
           display: 'flex',
-          gap: isNarrow ? 6 : 18,
+          gap: isMobileLandscape ? 4 : isNarrow ? 6 : 18,
           justifyContent: 'center',
-          width: 'min(94vw, 760px)',
-          padding: '0 14px',
+          width: isMobileLandscape ? 'min(54vw, 420px)' : 'min(94vw, 760px)',
+          padding: isMobileLandscape ? '0 2px' : '0 14px',
           overflowX: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
         }}
@@ -760,9 +787,9 @@ export default function App() {
               disabled={!bag}
               onClick={() => handleBagSelectByColor(color)}
               style={{
-                width: isNarrow ? 'clamp(52px, 15vw, 72px)' : 86,
-                height: isNarrow ? 'clamp(52px, 15vw, 72px)' : 86,
-                borderRadius: 18,
+                width: isMobileLandscape ? 'clamp(34px, 7.2vw, 46px)' : isNarrow ? 'clamp(52px, 15vw, 72px)' : 86,
+                height: isMobileLandscape ? 'clamp(34px, 7.2vw, 46px)' : isNarrow ? 'clamp(52px, 15vw, 72px)' : 86,
+                borderRadius: isMobileLandscape ? 10 : 18,
                 border: isNextTarget ? '2px solid #2563eb' : '1px solid rgba(148,163,184,0.35)',
                 background: isNextTarget ? 'rgba(59,130,246,0.12)' : '#f8fafc',
                 cursor: bag ? 'pointer' : 'default',
@@ -778,8 +805,8 @@ export default function App() {
                   src={publicAsset(`images/${color}.png`)}
                   alt={`${color} bag`}
                   style={{
-                    width: isNarrow ? 'clamp(36px, 10vw, 52px)' : 58,
-                    height: isNarrow ? 'clamp(36px, 10vw, 52px)' : 58,
+                    width: isMobileLandscape ? 'clamp(22px, 4.8vw, 30px)' : isNarrow ? 'clamp(36px, 10vw, 52px)' : 58,
+                    height: isMobileLandscape ? 'clamp(22px, 4.8vw, 30px)' : isNarrow ? 'clamp(36px, 10vw, 52px)' : 58,
                     objectFit: 'contain',
                   }}
                 />
