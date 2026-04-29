@@ -606,8 +606,10 @@ export class ArcheryScene {
         this.roomAtlasTexture = null
       }
 
-      const srgbMap = (url: string) => {
-        const map = this.textureLoader.load(url)
+      const srgbMap = (relativePath: string) => {
+        const map = this.textureLoader.load(
+          publicAsset(relativePath.replace(/^\/+/, ''))
+        )
         map.colorSpace = THREE.SRGBColorSpace
         return map
       }
