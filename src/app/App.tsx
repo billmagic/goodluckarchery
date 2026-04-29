@@ -150,7 +150,7 @@ export default function App() {
   const isMobilePortrait = isNarrow && !isMobileLandscape
   const compactPanelPadding = isMobileLandscape ? '8px 10px' : isMobilePortrait ? '10px 12px' : '12px 14px'
   const topSafeOffset = isMobileLandscape ? 8 : isMobilePortrait ? 12 : 24
-  const gameSelectTop = isMobileLandscape ? 8 : isMobilePortrait ? 64 : 20
+  const gameSelectTop = isMobileLandscape ? 8 : isMobilePortrait ? 72 : 20
   const gameSelectMaxWidth = isMobileLandscape
     ? 'min(calc(100vw - 20px), 220px)'
     : isMobilePortrait
@@ -161,7 +161,7 @@ export default function App() {
   const resultPanelWidth = isMobileLandscape
     ? 'min(58vw, 500px)'
     : isMobilePortrait
-    ? 'min(98vw, 860px)'
+    ? 'min(48vw, 420px)'
     : 'min(94vw, 760px)'
   const bagPanelBottom = isMobileLandscape ? 8 : isMobilePortrait ? joystickSize + 52 : 132
   const bagPanelWidth = isMobileLandscape ? 'min(54vw, 420px)' : isMobilePortrait ? 'min(98vw, 860px)' : 'min(94vw, 760px)'
@@ -392,27 +392,29 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isMobilePortrait ? 'auto' : gameSelectTop,
-          bottom: isMobilePortrait ? gameSelectBottomPortrait : undefined,
+          top: isMobilePortrait ? gameSelectTop : gameSelectTop,
+          bottom: isMobilePortrait ? undefined : gameSelectBottomPortrait,
           left: isNarrow ? 10 : 20,
           zIndex: 35,
           background: 'rgba(255,255,255,0.95)',
           borderRadius: 12,
-          padding: isMobileLandscape ? 8 : isMobilePortrait ? '8px 10px' : isNarrow ? 12 : 16,
-          maxHeight: isMobileLandscape ? '26vh' : isMobilePortrait ? '26vh' : isNarrow ? '36vh' : undefined,
+          padding: isMobileLandscape ? 8 : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
+          maxHeight: isMobileLandscape ? '26vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
           overflowY: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
           maxWidth: gameSelectMaxWidth,
+          minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
+          minHeight: isMobilePortrait ? 110 : undefined,
           boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
           backdropFilter: 'blur(8px)',
         }}
       >
         <div
           style={{
-            fontSize: isMobileLandscape ? 13 : isMobilePortrait ? 13 : 16,
+            fontSize: isMobileLandscape ? 13 : isMobilePortrait ? 12 : 16,
             fontWeight: 700,
             color: '#1d4ed8',
-            marginBottom: isMobileLandscape ? 8 : isMobilePortrait ? 8 : 12,
+            marginBottom: isMobileLandscape ? 8 : isMobilePortrait ? 6 : 12,
             textAlign: 'center',
           }}
         >
@@ -429,14 +431,14 @@ export default function App() {
                 onClick={() => handleYamlGameSelect(game.path)}
                 disabled={isGameSelectionLocked}
                 style={{
-                  padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '8px 12px' : '10px 16px',
+                  padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '6px 8px' : '10px 16px',
                   border: isSelected ? '2px solid #2563eb' : '1px solid #d1d5db',
                   borderRadius: 8,
                   background: isSelected ? '#eff6ff' : '#ffffff',
                   color: isSelected ? '#2563eb' : '#374151',
                   cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
                   opacity: isGameSelectionLocked ? 0.5 : 1,
-                  fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 12 : 14,
+                  fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 11 : 14,
                   fontWeight: 500,
                   outline: 'none',
                   textAlign: 'left',
@@ -453,14 +455,14 @@ export default function App() {
             disabled={isGameSelectionLocked}
             style={{
               marginTop: 4,
-              padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '8px 12px' : '10px 16px',
+              padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '6px 8px' : '10px 16px',
               border: gameMode === 'custom-betting' ? '2px solid #2563eb' : '1px solid #d1d5db',
               borderRadius: 8,
               background: gameMode === 'custom-betting' ? '#eff6ff' : '#ffffff',
               color: gameMode === 'custom-betting' ? '#2563eb' : '#374151',
               cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
               opacity: isGameSelectionLocked ? 0.5 : 1,
-              fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 12 : 14,
+              fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 11 : 14,
               fontWeight: 700,
               outline: 'none',
             }}
@@ -523,9 +525,9 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: resultPanelTop,
-          left: '50%',
-          transform: 'translateX(-50%)',
+          top: isMobilePortrait ? gameSelectTop : resultPanelTop,
+          left: isMobilePortrait ? '52vw' : '50%',
+          transform: isMobilePortrait ? 'none' : 'translateX(-50%)',
           zIndex: 35,
           display: 'grid',
           gridTemplateColumns: isNarrow
@@ -645,13 +647,13 @@ export default function App() {
           ...(isNarrow
             ? isMobilePortrait
               ? {
-                  top: 'auto',
+                  top: '44%',
                   left: 'auto',
                   right: 10,
                   transform: 'none',
-                  bottom: joystickSize + 22,
+                  bottom: 'auto',
                   minWidth: 0,
-                  width: 'min(46vw, 180px)',
+                  width: 'min(40vw, 160px)',
                 }
               : {
                   top: isMobileLandscape ? 8 : 118,
