@@ -559,12 +559,6 @@ export default function App() {
         {Array.from({ length: 5 }, (_, slotIndex) => {
           const isNextShot = results.length === slotIndex && results.length < 5
           const row = results[slotIndex]
-          const displayPts =
-            row != null
-              ? row.title.trim() === '꽝!'
-                ? 0
-                : row.score
-              : null
           return (
             <div
               key={`shot-result-slot-${slotIndex}`}
@@ -606,35 +600,16 @@ export default function App() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: 8,
+                      gap: 0,
                       flexWrap: 'wrap',
                       fontSize: isMobileLandscape ? 10 : 13,
                       fontWeight: 700,
+                      minHeight: isMobileLandscape ? 26 : 36,
                     }}
                   >
                     <span style={{ color: '#0f172a', textAlign: 'center' }}>
                       {row.title}
                     </span>
-                    <span
-                      style={{
-                        color:
-                          displayPts === 0 ? '#dc2626' : '#22c55e',
-                        fontWeight: 800,
-                      }}
-                    >
-                      {displayPts}점
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      width: '100%',
-                      fontSize: isMobileLandscape ? 9 : 11,
-                      color: '#475569',
-                      textAlign: 'center',
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {row.message}
                   </div>
                 </>
               ) : (
@@ -661,9 +636,9 @@ export default function App() {
           ...(isNarrow
             ? isMobilePortrait
               ? {
-                  top: '18%',
+                  top: 'calc(18% + 56px)',
                   left: 'auto',
-                  right: 10,
+                  right: 'max(0px, env(safe-area-inset-right, 0px))',
                   transform: 'none',
                   bottom: 'auto',
                   minWidth: 0,
