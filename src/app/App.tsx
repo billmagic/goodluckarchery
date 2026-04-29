@@ -147,8 +147,24 @@ export default function App() {
   const joystickSize =
     viewportWidth <= 768 ? Math.min(130, Math.round(viewportWidth * 0.36)) : 132
   const isMobileLandscape = isNarrow && viewportWidth > viewportHeight
-  const compactPanelPadding = isMobileLandscape ? '8px 10px' : '12px 14px'
-  const topSafeOffset = isMobileLandscape ? 8 : isNarrow ? 10 : 24
+  const isMobilePortrait = isNarrow && !isMobileLandscape
+  const compactPanelPadding = isMobileLandscape ? '8px 10px' : isMobilePortrait ? '10px 12px' : '12px 14px'
+  const topSafeOffset = isMobileLandscape ? 8 : isMobilePortrait ? 12 : 24
+  const gameSelectTop = isMobileLandscape ? 8 : isMobilePortrait ? 64 : 20
+  const gameSelectMaxWidth = isMobileLandscape
+    ? 'min(calc(100vw - 20px), 220px)'
+    : isMobilePortrait
+    ? 'min(calc(100vw - 20px), 320px)'
+    : undefined
+  const resultPanelTop = isMobileLandscape ? 58 : isMobilePortrait ? 224 : 96
+  const resultPanelWidth = isMobileLandscape
+    ? 'min(58vw, 500px)'
+    : isMobilePortrait
+    ? 'min(98vw, 860px)'
+    : 'min(94vw, 760px)'
+  const bagPanelBottom = isMobileLandscape ? 8 : isMobilePortrait ? joystickSize + 52 : 132
+  const bagPanelWidth = isMobileLandscape ? 'min(54vw, 420px)' : isMobilePortrait ? 'min(98vw, 860px)' : 'min(94vw, 760px)'
+  const titleWidth = isMobileLandscape ? 'min(52vw, 380px)' : isMobilePortrait ? 'min(96vw, 560px)' : undefined
 
   useEffect(() => {
     let isMounted = true
@@ -375,7 +391,7 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isMobileLandscape ? 8 : isNarrow ? 52 : 20,
+          top: gameSelectTop,
           left: isNarrow ? 10 : 20,
           zIndex: 35,
           background: 'rgba(255,255,255,0.95)',
@@ -384,11 +400,7 @@ export default function App() {
           maxHeight: isMobileLandscape ? '26vh' : isNarrow ? '36vh' : undefined,
           overflowY: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
-          maxWidth: isMobileLandscape
-            ? 'min(calc(100vw - 20px), 220px)'
-            : isNarrow
-            ? 'min(calc(100vw - 20px), 280px)'
-            : undefined,
+          maxWidth: gameSelectMaxWidth,
           boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
           backdropFilter: 'blur(8px)',
         }}
@@ -483,7 +495,7 @@ export default function App() {
           gap: isMobileLandscape ? 6 : isNarrow ? 8 : 12,
           flexWrap: 'wrap',
           justifyContent: 'center',
-          width: isMobileLandscape ? 'min(52vw, 380px)' : isNarrow ? 'min(96vw, 520px)' : undefined,
+          width: titleWidth,
           padding: isNarrow ? '0 8px' : undefined,
         }}
       >
@@ -509,7 +521,7 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          top: isMobileLandscape ? 58 : isNarrow ? 200 : 96,
+          top: resultPanelTop,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 35,
@@ -520,8 +532,8 @@ export default function App() {
               : 'repeat(5, minmax(56px, 1fr))'
             : 'repeat(5, minmax(100px, 1fr))',
           gap: isMobileLandscape ? 4 : isNarrow ? 6 : 18,
-          width: isMobileLandscape ? 'min(58vw, 500px)' : isNarrow ? 'min(98vw, 760px)' : 'min(94vw, 760px)',
-          padding: isMobileLandscape ? '0 2px' : isNarrow ? '0 6px' : '0 14px',
+          width: resultPanelWidth,
+          padding: isMobileLandscape ? '0 2px' : isMobilePortrait ? '0 4px' : isNarrow ? '0 6px' : '0 14px',
           overflowX: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
         }}
@@ -634,7 +646,11 @@ export default function App() {
                 left: isMobileLandscape ? 'auto' : '50%',
                 right: isMobileLandscape ? 10 : undefined,
                 transform: isMobileLandscape ? 'none' : 'translateX(-50%)',
-                minWidth: isMobileLandscape ? 'min(42vw, 150px)' : 'min(92vw, 200px)',
+                minWidth: isMobileLandscape
+                  ? 'min(42vw, 150px)'
+                  : isMobilePortrait
+                  ? 'min(74vw, 260px)'
+                  : 'min(92vw, 200px)',
               }
             : {
                 top: 'calc(50% - 10vmin)',
@@ -707,7 +723,7 @@ export default function App() {
                 left: isMobileLandscape ? 'auto' : 10,
                 right: isMobileLandscape ? 10 : 10,
                 top: isMobileLandscape ? 44 : 'auto',
-                bottom: isMobileLandscape ? 'auto' : joystickSize + 36,
+                bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
                 transform: 'none',
                 minWidth: 0,
               }
@@ -764,15 +780,15 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          bottom: isMobileLandscape ? 8 : isNarrow ? joystickSize + 44 : 132,
+          bottom: bagPanelBottom,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 35,
           display: 'flex',
           gap: isMobileLandscape ? 4 : isNarrow ? 6 : 18,
           justifyContent: 'center',
-          width: isMobileLandscape ? 'min(54vw, 420px)' : 'min(94vw, 760px)',
-          padding: isMobileLandscape ? '0 2px' : '0 14px',
+          width: bagPanelWidth,
+          padding: isMobileLandscape ? '0 2px' : isMobilePortrait ? '0 6px' : '0 14px',
           overflowX: isNarrow ? 'auto' : undefined,
           WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
         }}
