@@ -13,6 +13,7 @@ import {
   type WindState,
 } from '../game/ArcheryScene'
 import { loadLuckyBagYaml, mapLuckyBagYamlToRewards } from '../utils/yamlLoader'
+import { publicAsset } from '../utils/publicAsset'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const SAMPLE_REWARDS: RewardItem[] = [
@@ -774,7 +775,7 @@ export default function App() {
             >
               {bag ? (
                 <img
-                  src={`/images/${color}.png`}
+                  src={publicAsset(`images/${color}.png`)}
                   alt={`${color} bag`}
                   style={{
                     width: isNarrow ? 'clamp(36px, 10vw, 52px)' : 58,

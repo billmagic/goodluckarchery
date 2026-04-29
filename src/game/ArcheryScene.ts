@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import type { ScopePreviewState } from '../components/ScopeOverlay'
+import { publicAsset } from '../utils/publicAsset'
 
 export type RewardItem = {
   id: string
@@ -267,10 +268,10 @@ export class ArcheryScene {
   private resultDelayTimer: number | null = null
   private arrowHideTimer: number | null = null
 
-  private bowPullAudio = new Audio('/sounds/bow_pull.mp3')
-  private arrowShotAudio = new Audio('/sounds/arrow_shot.mp3')
-  private hitTargetAudio = new Audio('/sounds/hit_target.mp3')
-  private hitBagAudio = new Audio('/sounds/hit_bag.mp3')
+  private bowPullAudio = new Audio(publicAsset('sounds/bow_pull.mp3'))
+  private arrowShotAudio = new Audio(publicAsset('sounds/arrow_shot.mp3'))
+  private hitTargetAudio = new Audio(publicAsset('sounds/hit_target.mp3'))
+  private hitBagAudio = new Audio(publicAsset('sounds/hit_bag.mp3'))
 
   private screenShakeTime = 0
   private screenShakeDuration = 0
@@ -503,11 +504,11 @@ export class ArcheryScene {
   }
 
   private loadTextures() {
-    this.arrowTexture = this.textureLoader.load('/images/arrow.png')
+    this.arrowTexture = this.textureLoader.load(publicAsset('images/arrow.png'))
     this.arrowTexture.colorSpace = THREE.SRGBColorSpace
 
     for (const color of BAG_COLOR_ORDER) {
-      const tex = this.textureLoader.load(`/images/${color}.png`)
+      const tex = this.textureLoader.load(publicAsset(`images/${color}.png`))
       tex.colorSpace = THREE.SRGBColorSpace
       this.bagTextures[color] = tex
     }
@@ -558,7 +559,7 @@ export class ArcheryScene {
     boardBack.rotation.x = Math.PI / 2
     this.targetRoot.add(boardBack)
 
-    const targetTexture = this.textureLoader.load('/images/target.jpg')
+    const targetTexture = this.textureLoader.load(publicAsset('images/target.jpg'))
     targetTexture.colorSpace = THREE.SRGBColorSpace
 
     const targetFace = new THREE.Mesh(
@@ -614,7 +615,7 @@ export class ArcheryScene {
       const floor = new THREE.Mesh(
         new THREE.PlaneGeometry(20, 20),
         new THREE.MeshStandardMaterial({
-          map: srgbMap('/images/floor.png'),
+          map: srgbMap('images/floor.png'),
           roughness: 0.92,
           metalness: 0,
         })
@@ -624,20 +625,20 @@ export class ArcheryScene {
 
       const backWall = new THREE.Mesh(
         new THREE.PlaneGeometry(20, 12),
-        new THREE.MeshBasicMaterial({ map: srgbMap('/images/wall.png') })
+        new THREE.MeshBasicMaterial({ map: srgbMap('images/wall.png') })
       )
       backWall.position.set(0, 3, -12)
 
       const leftWall = new THREE.Mesh(
         new THREE.PlaneGeometry(20, 12),
-        new THREE.MeshBasicMaterial({ map: srgbMap('/images/leftwall.png') })
+        new THREE.MeshBasicMaterial({ map: srgbMap('images/leftwall.png') })
       )
       leftWall.position.set(-10, 3, -2)
       leftWall.rotation.y = Math.PI / 2
 
       const rightWall = new THREE.Mesh(
         new THREE.PlaneGeometry(20, 12),
-        new THREE.MeshBasicMaterial({ map: srgbMap('/images/rightwall.png') })
+        new THREE.MeshBasicMaterial({ map: srgbMap('images/rightwall.png') })
       )
       rightWall.position.set(10, 3, -2)
       rightWall.rotation.y = -Math.PI / 2
@@ -647,10 +648,10 @@ export class ArcheryScene {
 
     try {
       const [leftImg, backImg, rightImg, floorImg] = await Promise.all([
-        loadImageElement('/images/leftwall.png'),
-        loadImageElement('/images/wall.png'),
-        loadImageElement('/images/rightwall.png'),
-        loadImageElement('/images/floor.png'),
+        loadImageElement(publicAsset('images/leftwall.png')),
+        loadImageElement(publicAsset('images/wall.png')),
+        loadImageElement(publicAsset('images/rightwall.png')),
+        loadImageElement(publicAsset('images/floor.png')),
       ])
       if (this.isDestroyed) return
 

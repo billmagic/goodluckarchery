@@ -1,11 +1,13 @@
 // src/utils/yamlLoader.ts
 import yaml from 'js-yaml'
 import type { RewardItem } from '../game/ArcheryScene'
+import { publicAsset } from './publicAsset'
 
 export async function loadLuckyBagYaml(path = '/data/lucky-bags.yaml') {
-  const response = await fetch(path)
+  const url = publicAsset(path.replace(/^\/+/, ''))
+  const response = await fetch(url)
   if (!response.ok) {
-    throw new Error(`Failed to load yaml: ${path}`)
+    throw new Error(`Failed to load yaml: ${url}`)
   }
   const text = await response.text()
   return yaml.load(text) as Record<string, unknown>
