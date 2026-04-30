@@ -736,7 +736,7 @@ export default function App() {
               : {
                   left: 10,
                   right: isMobileLandscape ? 'auto' : 10,
-                  top: isMobileLandscape ? 'calc(8px + 35vh + 3px)' : 'auto',
+                  top: isMobileLandscape ? 'calc(8px + 52vh + 12px)' : 'auto',
                   bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
                   transform: 'none',
                   width: isMobileLandscape ? 'min(calc(100vw - 20px), 188px)' : undefined,
