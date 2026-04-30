@@ -406,20 +406,20 @@ export default function App() {
             zIndex: 35,
             background: 'rgba(255,255,255,0.95)',
             borderRadius: 12,
-          padding: isMobileLandscape ? '12px 14px' : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
-          maxHeight: isMobileLandscape ? '56vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
+            padding: isMobileLandscape ? '10px 12px' : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
+            maxHeight: isMobileLandscape ? '78vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
             overflowY: isNarrow ? 'auto' : undefined,
             WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
-          maxWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 320px)' : gameSelectMaxWidth,
+            maxWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : gameSelectMaxWidth,
             minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
-            minHeight: isMobilePortrait ? 110 : undefined,
+            minHeight: isMobileLandscape ? '52vh' : isMobilePortrait ? 110 : undefined,
             boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
             backdropFilter: 'blur(8px)',
           }}
         >
         <div
           style={{
-            fontSize: isMobileLandscape ? 15 : isMobilePortrait ? 12 : 16,
+            fontSize: isMobileLandscape ? 13 : isMobilePortrait ? 12 : 16,
             fontWeight: 700,
             color: '#1d4ed8',
             marginBottom: isMobileLandscape ? 10 : isMobilePortrait ? 6 : 12,
@@ -439,14 +439,14 @@ export default function App() {
                 onClick={() => handleYamlGameSelect(game.path)}
                 disabled={isGameSelectionLocked}
                 style={{
-                  padding: isMobileLandscape ? '11px 14px' : isMobilePortrait ? '6px 8px' : '10px 16px',
+                  padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '6px 8px' : '10px 16px',
                   border: isSelected ? '2px solid #2563eb' : '1px solid #d1d5db',
                   borderRadius: 8,
                   background: isSelected ? '#eff6ff' : '#ffffff',
                   color: isSelected ? '#2563eb' : '#374151',
                   cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
                   opacity: isGameSelectionLocked ? 0.5 : 1,
-                  fontSize: isMobileLandscape ? 14 : isMobilePortrait ? 11 : 14,
+                  fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 11 : 14,
                   fontWeight: 500,
                   outline: 'none',
                   textAlign: 'left',
@@ -463,14 +463,14 @@ export default function App() {
             disabled={isGameSelectionLocked}
             style={{
               marginTop: 4,
-              padding: isMobileLandscape ? '11px 14px' : isMobilePortrait ? '6px 8px' : '10px 16px',
+              padding: isMobileLandscape ? '8px 10px' : isMobilePortrait ? '6px 8px' : '10px 16px',
               border: gameMode === 'custom-betting' ? '2px solid #2563eb' : '1px solid #d1d5db',
               borderRadius: 8,
               background: gameMode === 'custom-betting' ? '#eff6ff' : '#ffffff',
               color: gameMode === 'custom-betting' ? '#2563eb' : '#374151',
               cursor: isGameSelectionLocked ? 'not-allowed' : 'pointer',
               opacity: isGameSelectionLocked ? 0.5 : 1,
-              fontSize: isMobileLandscape ? 14 : isMobilePortrait ? 11 : 14,
+              fontSize: isMobileLandscape ? 12 : isMobilePortrait ? 11 : 14,
               fontWeight: 700,
               outline: 'none',
             }}
@@ -733,12 +733,12 @@ export default function App() {
                   width: 'min(46vw, 180px)',
                 }
               : {
-                  left: isMobileLandscape ? 'auto' : 10,
-                  right: isMobileLandscape ? 10 : 10,
-                  top: isMobileLandscape ? 92 : 'auto',
+                  left: 10,
+                  right: isMobileLandscape ? 'auto' : 10,
+                  top: isMobileLandscape ? 'calc(78vh + 14px)' : 'auto',
                   bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
                   transform: 'none',
-                  minWidth: 0,
+                  minWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : 0,
                 }
             : {
                 right: 24,
