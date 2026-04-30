@@ -401,7 +401,7 @@ export default function App() {
           style={{
             position: 'absolute',
             top: gameSelectTop,
-            bottom: isMobilePortrait ? undefined : gameSelectBottomPortrait,
+            bottom: isMobilePortrait ? undefined : isMobileLandscape ? undefined : gameSelectBottomPortrait,
             left: isNarrow ? 10 : 20,
             zIndex: 35,
             background: 'rgba(255,255,255,0.95)',
@@ -411,6 +411,7 @@ export default function App() {
             overflowY: isNarrow ? 'auto' : undefined,
             WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
             maxWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : gameSelectMaxWidth,
+            width: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : undefined,
             minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
             minHeight: isMobileLandscape ? '52vh' : isMobilePortrait ? 110 : undefined,
             boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
@@ -735,9 +736,10 @@ export default function App() {
               : {
                   left: 10,
                   right: isMobileLandscape ? 'auto' : 10,
-                  top: isMobileLandscape ? 'calc(78vh + 14px)' : 'auto',
+                  top: isMobileLandscape ? 'calc(8px + 52vh + 3px)' : 'auto',
                   bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
                   transform: 'none',
+                  width: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : undefined,
                   minWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : 0,
                 }
             : {
