@@ -407,13 +407,13 @@ export default function App() {
             background: 'rgba(255,255,255,0.95)',
             borderRadius: 12,
             padding: isMobileLandscape ? '10px 12px' : isMobilePortrait ? '6px 8px' : isNarrow ? 12 : 16,
-            maxHeight: isMobileLandscape ? '78vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
+            maxHeight: isMobileLandscape ? '52vh' : isMobilePortrait ? '14vh' : isNarrow ? '36vh' : undefined,
             overflowY: isNarrow ? 'auto' : undefined,
             WebkitOverflowScrolling: isNarrow ? 'touch' : undefined,
-            maxWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : gameSelectMaxWidth,
-            width: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : undefined,
+            maxWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 188px)' : gameSelectMaxWidth,
+            width: isMobileLandscape ? 'min(calc(100vw - 20px), 188px)' : undefined,
             minWidth: isMobilePortrait ? 'min(46vw, 220px)' : undefined,
-            minHeight: isMobileLandscape ? '52vh' : isMobilePortrait ? 110 : undefined,
+            minHeight: isMobileLandscape ? '35vh' : isMobilePortrait ? 110 : undefined,
             boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
             backdropFilter: 'blur(8px)',
           }}
@@ -736,11 +736,11 @@ export default function App() {
               : {
                   left: 10,
                   right: isMobileLandscape ? 'auto' : 10,
-                  top: isMobileLandscape ? 'calc(8px + 52vh + 3px)' : 'auto',
+                  top: isMobileLandscape ? 'calc(8px + 35vh + 3px)' : 'auto',
                   bottom: isMobileLandscape ? 'auto' : joystickSize + 40,
                   transform: 'none',
-                  width: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : undefined,
-                  minWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 280px)' : 0,
+                  width: isMobileLandscape ? 'min(calc(100vw - 20px), 188px)' : undefined,
+                  minWidth: isMobileLandscape ? 'min(calc(100vw - 20px), 188px)' : 0,
                 }
             : {
                 right: 24,
