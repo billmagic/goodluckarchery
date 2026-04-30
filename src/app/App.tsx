@@ -903,7 +903,6 @@ export default function App() {
       <GameSummaryPopup
         visible={summaryVisible}
         results={results}
-        totalScore={results.reduce((sum, item) => sum + item.score, 0)}
         onRestart={handleRestart}
         onExit={handleExit}
       />
